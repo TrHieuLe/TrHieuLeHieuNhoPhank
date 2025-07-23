@@ -32,6 +32,12 @@
         body {
             font-family: sans-serif;
         }
+        .img-fit {
+  width: 100%;
+  height: 250px; /* Chiều cao cố định */
+  object-fit: cover; /* Cắt ảnh để vừa khung */
+  border-radius: 8px;
+}
         .placeholder {
             height: 100vh;
             display: flex;
@@ -141,25 +147,7 @@
     <!-- Header End -->
 
     <!-- Blog Details Hero Section Begin -->
-    <section class="blog-hero-section set-bg" data-setbg="img/kmcclb_1.png">
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="bh-text">
-                        <a href="img/veokmc_1.mp4" class="play-btn video-popup"><i
-                                class="fa fa-play"></i></a>
-                        <h2 >Sinh Nhật KMC tròn 4 tuổi</h2>
-                        <ul class="intro-list">
-                            <li style="font-size: 20px;"><strong>KMC</strong></li>
-                            <li style="font-size: 20px;">| JULY 16, 2025</li>
-                            <li style="font-size: 20px;">| CLB MC TRƯỜNG ĐẠI HỌC THỦY LỢI</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     <!-- Blog Details Hero Section End -->
 
     <!-- Blog Details Section Begin -->
@@ -168,47 +156,47 @@
             <div class="row">
                 <div class="col-lg-8 m-auto">
                     <div class="bd-text">
-                        <div class="bd-title">
-                            <p>Ngày 16/07/2025, CLB MC KMC đã chính thức bước sang tuổi thứ 4 – một cột mốc đầy tự hào đánh dấu hành trình không ngừng nỗ lực và trưởng thành.</p>
-                            <p>Buổi lễ sinh nhật diễn ra trong không khí ấm áp và trang trọng, với sự góp mặt của đông đảo thành viên qua các thế hệ, khách mời đặc biệt cùng những người đã luôn đồng hành và ủng hộ CLB trong suốt thời gian qua.</p>
-                            <p>4 năm – là chặng đường của bao nhiêu buổi tập luyện, sân khấu lớn nhỏ, những lần đứng trước đám đông run rẩy rồi vững vàng hơn từng ngày. KMC không chỉ là nơi rèn luyện kỹ năng MC, mà còn là một mái nhà – nơi kết nối, sẻ chia và truyền cảm hứng.</p>
-                            <p>Nhìn lại hành trình đã qua, mỗi thành viên đều mang trong mình niềm tự hào, và cả khát vọng cùng nhau viết tiếp những trang mới – rực rỡ hơn, chuyên nghiệp hơn, và gắn kết hơn nữa.</p>
+                        <div class ="bd-more-text">
+                            <h4> VINH DANH CÁC THÀNH VIÊN CLB ĐẠT GIẢI THƯỞNG XUẤT SẮC</h4>
                         </div>
+                        <div class="bd-title">
 
-                        <div class="bd-quote">
-                            <p>CLB MC là một môi trường rèn luyện rất tuyệt vời cho các bạn sinh viên – không chỉ nâng cao kỹ năng giao tiếp, mà còn giúp các em tự tin hơn mỗi ngày. Cô rất tự hào về sự trưởng thành của các thế hệ trong CLB</p>
-                            <span>Thạc sĩ-Đặng Hương Giang</span>
-                            <img src="img/quote-left.png" alt="">
+                           <p>Không chỉ tỏa sáng trong các hoạt động của CLB, nhiều thành viên KMC còn ghi dấu ấn đậm nét trong học tập, nghiên cứu khoa học và rèn luyện bản thân. CLB trân trọng vinh danh những gương mặt tiêu biểu đã mang về thành tích đáng tự hào, góp phần nâng cao hình ảnh và uy tín của CLB KMC trong cộng đồng sinh viên Trường.</p>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 30px; gap: 20px;">
+                                <img src="img/img-giai-thuong/ngocha.jpg" alt="Hoàng Ngọc Hà" style="width: 150px; height: auto; border-radius: 10px; object-fit: cover;">
+                                <div>
+                                    <h3>I. Hoàng Ngọc Hà – Giải Nhì môn Triết học cấp Trường</h3>
+                                    <p>Với tư duy phản biện sắc bén cùng sự chuẩn bị nghiêm túc, bạn Hoàng Ngọc Hà đã xuất sắc giành giải Nhì môn Triết học cấp Trường. Hà không chỉ là một thành viên năng nổ trong các hoạt động CLB, mà còn là tấm gương về việc kết hợp hài hòa giữa học thuật và hoạt động ngoại khóa. Thành tích này là minh chứng rõ nét cho tinh thần học tập nghiêm túc và không ngừng vươn lên của bạn.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 30px; gap: 20px;">
+                                <img src="img/img-giai-thuong/anhthu.jpg" alt="Nguyễn Anh Thư" style="width: 150px; height: auto; border-radius: 10px; object-fit: cover;">
+                                <div>
+                                    <h3>II. Nguyễn Anh Thư – Giải Ba Nghiên cứu Khoa học cấp Khoa</h3>
+                                    <p>Với đề tài nghiên cứu mang tính thực tiễn cao và sự đầu tư công phu, bạn Nguyễn Anh Thư đã đạt giải Ba Nghiên cứu Khoa học cấp Khoa. Đây là một dấu mốc ấn tượng trên hành trình học tập và nghiên cứu của Anh Thư, đồng thời cũng là lời khẳng định rằng các thành viên CLB KMC không chỉ có năng khiếu dẫn chương trình mà còn là những sinh viên có nền tảng học thuật vững vàng.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 30px; gap: 20px;">
+                                <img src="img/img-giai-thuong/loc.jpg" alt="Nguyễn Hoàng Lộc" style="width: 150px; height: auto; border-radius: 10px; object-fit: cover;">
+                                <div>
+                                    <h3>III. Nguyễn Hoàng Lộc – Giải Nhì Nghiên cứu Khoa học cấp Khoa</h3>
+                                    <p>Bạn Nguyễn Hoàng Lộc – với tinh thần sáng tạo, đam mê nghiên cứu và không ngại thử thách – đã vinh dự đạt giải Nhì Nghiên cứu Khoa học cấp Khoa. Đây là một thành tích đáng tự hào, cho thấy sự nỗ lực nghiêm túc và niềm đam mê học thuật không ngừng nghỉ của Lộc trong suốt quá trình học tập và rèn luyện tại trường.</p>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="bd-more-text">
-                            <h4>4 năm – Hành trình của sự trưởng thành và kết nối</h4>
-                            <p>Mỗi thế hệ thành viên đi qua đều để lại dấu ấn riêng, góp phần làm nên bản sắc của KMC: nhiệt huyết, chuyên nghiệp và đầy cảm hứng. Chính những con người ấy đã biến CLB không chỉ là một tổ chức, mà là một gia đình thực thụ – nơi các bạn trẻ được thỏa sức đam mê, rèn luyện bản lĩnh và trưởng thành qua từng buổi dẫn.</p>
-                            <p>Buổi lễ sinh nhật là dịp để cùng nhau nhìn lại hành trình đã qua, tri ân những người đã đồng hành, và cùng đặt ra những kỳ vọng mới cho tương lai. Từ những sân khấu nhỏ đến những chương trình quy mô, từ những buổi tập luyện âm thầm đến ánh đèn rực rỡ, KMC sẽ luôn tiếp tục sứ mệnh lan tỏa giá trị của nghệ thuật dẫn chương trình đến cộng đồng sinh viên.</p>
-                            <p>Chúc CLB MC KMC tuổi mới vững bước, phát triển mạnh mẽ hơn nữa và tiếp tục là ngọn lửa đam mê cho bao thế hệ sinh viên Thủy Lợi!</p>
+                            <p>CLB KMC gửi lời chúc mừng nồng nhiệt đến các bạn! Những thành tích xuất sắc này không chỉ là niềm tự hào cá nhân mà còn là động lực lan tỏa đến toàn thể thành viên CLB – khơi dậy tinh thần phấn đấu, chinh phục tri thức và luôn nỗ lực để hoàn thiện bản thân.</p>
+                            <p>Chúc các bạn tiếp tục giữ vững phong độ và gặt hái thêm nhiều thành công hơn nữa trong hành trình phía trước!</p>
                         </div>
+                        
 
-                        <div class="bd-more-pic">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/img-blogs/nhom.jpg" alt="">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/img-blogs/nhom_1.jpg" alt="">
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <div class="bd-more-text second-text">
-    <h4>KMC – Hành trình vẫn đang tiếp diễn</h4>
-    <p>4 năm chỉ là khởi đầu cho một hành trình dài hơn phía trước. Chúng tôi tin rằng, với sự đoàn kết, nhiệt huyết và khát khao phát triển không ngừng, KMC sẽ tiếp tục vươn xa hơn nữa – không chỉ là CLB MC hàng đầu tại Trường Đại học Thủy Lợi, mà còn là điểm tựa vững chắc cho những người trẻ nuôi dưỡng đam mê và bản lĩnh sân khấu.</p>
-    <p>Cảm ơn vì đã là một phần của hành trình này. Và nếu bạn đang mang trong mình ước mơ được cất tiếng nói trên sân khấu, hãy đến với KMC – nơi mọi giọng nói đều có cơ hội tỏa sáng.</p>
-    <p>Chúc KMC thêm tuổi mới – thêm thành công, thêm gắn kết và trọn vẹn những hành trình phía trước!</p>
-</div>
+                        
 
                         <div class="bd-tag-share">
                             <div class="tag">
                                 <a href="#">Sự kiện</a>
-                                <a href="#">Sinh nhật</a>
+                                <a href="#">Giải thưởng</a>
                             </div>
                             <div class="s-share">
                                 <span>Share:</span>
@@ -268,11 +256,11 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                    <div class="blog-item set-bg" data-setbg="img/thanh_tich.png">
-                        <div class="bi-tag bg-gradient">GIẢI THƯỞNG</div>
+                    <div class="blog-item set-bg" data-setbg="img/kmcclb_1.png">
+                        <div class="bi-tag bg-gradient">SINH NHẬT</div>
                         <div class="bi-text">
-                            <h5><a href="blog-details-giai-thuong.html">Thành viên CLB đạt thành tích cao trong học tập</a></h5>
-                            <span><i class="fa fa-clock-o"></i> 23 tháng 07 năm 2025</span>
+                            <h5><a href="blog-details.html">Sinh nhật tròn 4 tuổi của CLB KMC</a></h5>
+                            <span><i class="fa fa-clock-o"></i> 16 tháng 07 năm 2025</span>
                         </div>
                     </div>
                 </div>
