@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt lịch MC</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: url('img/test_1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    h2 {
+      color: white;
+      margin-top: 30px;
+      border-left: 5px solid #007bff;
+      padding-left: 12px;
+    }
+
+    #adminButton {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #adminButton:hover {
+      background-color: #0056b3;
+    }
+
+    form#bookingForm {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 25px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin-top: 20px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form#bookingForm input,
+    form#bookingForm select,
+    form#bookingForm textarea {
+      width: calc(50% - 10px);
+      padding: 10px;
+      margin-bottom: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form#bookingForm textarea {
+      width: 100%;
+      resize: vertical;
+    }
+
+    form#bookingForm input:focus,
+    form#bookingForm select:focus,
+    form#bookingForm textarea:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+
+    form#bookingForm button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form#bookingForm button:hover {
+      background-color: #218838;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    td input {
+      width: 100%;
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    td button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 3px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    td button:hover {
+      opacity: 0.9;
+    }
+
+    td button[onclick*="approve"] {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    td button[onclick*="clearMC"] {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    td button[onclick*="deleteAppointment"] {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #adminOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+
+    #adminLoginForm {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    #adminLoginForm input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #adminLoginForm button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    #closePopup {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: red;
+    }
+
+    @media (max-width: 600px) {
+      form#bookingForm input,
+      form#bookingForm select,
+      form#bookingForm textarea {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="adminButton" onclick="openLoginPopup()">Admin Login</button>
+
+  <div id="adminOverlay" onclick="closeLoginPopup()"></div>
+
+  <div id="adminLoginForm">
+    <div id="closePopup" onclick="closeLoginPopup()">❌</div>
+    <h3 style="text-align:center">Đăng nhập Admin</h3>
+    <input type="password" id="adminPass" placeholder="Nhập mật khẩu admin">
+    <button onclick="checkAdmin()">Đăng nhập</button>
+  </div>
+
+  <h2>Đặt lịch MC</h2>
+  <form id="bookingForm">
+    <input type="text" id="name" name="from_name" placeholder="Tên người đặt" required>
+    <input type="text" id="club" name="club_name" placeholder="Tên CLB" required>
+    <input type="email" id="email" name="user_email" placeholder="Email CLB" required>
+    <input type="date" id="date" name="booking_date" required>
+    <input type="time" id="time" name="booking_time" required>
+    <select id="buoi" name="buoi" required>
+      <option value="Sáng">Sáng</option>
+      <option value="Chiều">Chiều</option>
+      <option value="Tối">Tối</option>
+    </select>
+    <textarea id="note" name="note" placeholder="Yêu cầu (nếu có)" rows="3"></textarea>
+    <button type="submit">Đặt lịch</button>
+  </form>
+
+  <h2>Lịch hẹn đã đặt:</h2>
+  <table id="appointmentTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên</th>
+        <th>CLB</th>
+        <th>Email</th>
+        <th>Ngày</th>
+        <th>Thứ</th>
+        <th>Giờ</th>
+        <th>Buổi</th>
+        <th>Yêu cầu</th>
+        <th>MC phụ trách</th>
+        <th>SĐT MC</th>
+        <th>Duyệt</th>
+        <th>Hủy</th>
+        <th>Xóa</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    emailjs.init("A8SKZWiLa_bbiGtef");
+
+    let isAdmin = false;
+
+    function openLoginPopup() {
+      document.getElementById("adminLoginForm").style.display = "block";
+      document.getElementById("adminOverlay").style.display = "block";
+    }
+
+    function closeLoginPopup() {
+      document.getElementById("adminLoginForm").style.display = "none";
+      document.getElementById("adminOverlay").style.display = "none";
+    }
+
+    function checkAdmin() {
+      const pass = document.getElementById("adminPass").value;
+      if (pass === "hieunhocau") {
+        isAdmin = true;
+        alert("✅ Đăng nhập admin thành công!");
+        closeLoginPopup();
+        showAppointments();
+      } else {
+        alert("❌ Sai mật khẩu!");
+      }
+    }
+
+    const form = document.getElementById("bookingForm");
+    const tableBody = document.querySelector("#appointmentTable tbody");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const club = document.getElementById("club").value;
+      const email = document.getElementById("email").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const buoi = document.getElementById("buoi").value;
+      const note = document.getElementById("note").value;
+
+      const newAppointment = {
+        name, club, email, date, time, buoi, note,
+        mc: "Chưa duyệt", phone: "", approved: false
+      };
+
+      let appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      appointments.push(newAppointment);
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+
+      const adminForm = document.createElement("form");
+      adminForm.style.display = "none";
+      adminForm.innerHTML = `
+        <input name="from_name" value="${name}">
+        <input name="club_name" value="${club}">
+        <input name="user_email" value="${email}">
+        <input name="booking_date" value="${date}">
+        <input name="booking_time" value="${time}">
+        <input name="buoi" value="${buoi}">
+        <input name="note" value="${note}">
+        <input name="to_email" value="trunghieu7305@gmail.com">
+      `;
+      document.body.appendChild(adminForm);
+
+      emailjs.sendForm("service_0y7fhn8", "template_h1bhkoz", adminForm)
+        .then(() => {
+          alert("✅ Đặt lịch thành công! Admin đã được thông báo.");
+          adminForm.remove();
+        })
+        .catch((error) => {
+          console.error("❌ Lỗi gửi mail cho admin:", error);
+          alert("Đặt lịch thành công nhưng gửi email cho admin thất bại.");
+          adminForm.remove();
+        });
+
+      form.reset();
+      showAppointments();
+    });
+
+    function showAppointments() {
+      let appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+
+      const now = new Date();
+      appointments = appointments.filter(appt => {
+        const apptTime = new Date(`${appt.date}T${appt.time}`);
+        return apptTime > now;
+      });
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+      tableBody.innerHTML = "";
+
+      const weekday = ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+
+      appointments.forEach((appt, index) => {
+        const thu = weekday[new Date(appt.date).getDay()];
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${appt.name}</td>
+          <td>${appt.club}</td>
+          <td>${appt.email}</td>
+          <td>${appt.date}</td>
+          <td>${thu}</td>
+          <td>${appt.time}</td>
+          <td>${appt.buoi}</td>
+          <td>${appt.note || ""}</td>
+          <td>${isAdmin ? `<input type="text" value="${appt.mc}" onchange="updateMC(${index}, this.value)">` : appt.mc}</td>
+          <td>${isAdmin ? `<input type="text" value="${appt.phone}" onchange="updatePhone(${index}, this.value)">` : appt.phone}</td>
+          <td>${isAdmin ? (appt.approved ? "✅" : `<button onclick="approve(${index})">Duyệt</button>`) : (appt.approved ? "✅" : "⏳")}</td>
+          <td>${isAdmin ? `<button onclick="clearMC(${index})">❌</button>` : ""}</td>
+          <td>${isAdmin ? `<button onclick="deleteAppointment(${index})">🗑️</button>` : ""}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function approve(index) {
+      const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      appointments[index].approved = true;
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+      showAppointments();
+
+      const appt = appointments[index];
+      const form = document.createElement("form");
+      form.style.display = "none";
+      form.innerHTML = `
+        <input name="from_name" value="${appt.name}">
+        <input name="user_email" value="${appt.email}">
+        <input name="booking_date" value="${appt.date}">
+        <input name="booking_time" value="${appt.time}">
+        <input name="mc_name" value="${appt.mc}">
+        <input name="mc_phone" value="${appt.phone}">
+        <input name="email" value="${appt.email}">
+      `;
+      document.body.appendChild(form);
+
+      emailjs.sendForm("service_0y7fhn8", "template_8p1hft8", form)
+        .then(() => {
+          alert(`✅ Đã duyệt và gửi email xác nhận cho ${appt.name}`);
+          form.remove();
+        })
+        .catch((error) => {
+          console.error("❌ Gửi email lỗi:", error);
+          alert("❌ Đã duyệt nhưng gửi email thất bại.");
+          form.remove();
+        });
+    }
+
+    function clearMC(index) {
+      const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      appointments[index].mc = "";
+      appointments[index].phone = "";
+      appointments[index].approved = false;
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+      showAppointments();
+    }
+
+    function deleteAppointment(index) {
+      const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      if (confirm("Bạn có chắc chắn muốn xóa lịch hẹn này?")) {
+        appointments.splice(index, 1);
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+        showAppointments();
+      }
+    }
+
+    function updateMC(index, value) {
+      const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      appointments[index].mc = value;
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+    }
+
+    function updatePhone(index, value) {
+      const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      appointments[index].phone = value;
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+    }
+
+    window.addEventListener("load", showAppointments);
+  </script>
+</body>
+</html>

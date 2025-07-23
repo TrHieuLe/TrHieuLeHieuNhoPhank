@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="img/logo_kmc.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="description" content="Manup Template">
+    <meta name="keywords" content="Manup, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KMC WEB</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+      .post-list {
+        max-height: 400px;
+        overflow-y: auto;
+        margin: 40px 0;
+      }
+      .post {
+        background: white;
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin: 10px auto;
+        max-width: 700px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: relative;
+      }
+      .post a {
+        text-decoration: none;
+        font-size: 18px;
+        color: #007bff;
+        font-weight: bold;
+      }
+      .summary {
+        color: #555;
+        font-size: 14px;
+        margin-top: 4px;
+      }
+      .delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 14px;
+        color: #888;
+        cursor: pointer;
+      }
+      .delete-btn:hover {
+        color: red;
+      }
+      #create {
+        display: block;
+        margin: 0 auto 20px;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+    </style>
+    <!-- Header Section Begin -->
+<style>
+    .header-section {
+        background-color: #fff;
+        padding: 10px 0;
+    }
+
+    .header-section .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo img {
+        height: 40px;
+        width: auto;
+        display: block;
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .mainmenu ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mainmenu ul li a {
+        text-decoration: none;
+        color: #000;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+   
+</style>
+</head>
+
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <header class="header-section header-normal">
+        <div class="container">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="img/logooo.png" alt="">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu">
+                    <ul>
+                        <li><a href="./index.html">Trang chủ</a></li>
+                        <li><a href="./about-us.html">Về chúng tôi</a></li>
+                        <li class="active"><a href="./speaker.html">Bài viết</a></li>
+                        <li><a href="./booking.html">Đặt lịch</a></li>
+                        <li><a href="index.html#team-kmc">Liên hệ chúng tôi</a></li>
+                    </ul>
+                </nav>
+                <a href="javascript:void(0)" class="primary-btn top-btn" id="adminToggle"><i class="fa fa-ticket"></i>LOGIN ADMIN</a>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+
+    <section class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>Bài viết mới</h2>
+                        <div class="bt-option">
+                            <a href="#">Trang chủ</a>
+                            <span>Bài viết mới</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Danh sách bài viết từ localStorage -->
+    <div class="container">
+        <button id="create" onclick="location.href='editor.html'">Tạo bài viết</button>
+        <div class="post-list" id="posts"></div>
+    </div>
+
+    <!-- Newslatter Section Begin -->
+<section class="newslatter-section about-newslatter">
+    <div class="container">
+        <div class="newslatter-inner set-bg" data-setbg="img/newslatter-bg.jpg">
+            <div class="ni-text" style="text-align: center;">
+                <h3>Cam kết từ CLB KMC</h3>
+                <p>
+                    Chúng tôi, những thành viên của CLB MC KMC, luôn tâm niệm rằng mỗi lời nói, mỗi ánh mắt, mỗi sân khấu đều là cơ hội để lan tỏa sự tự tin và cảm hứng đến cộng đồng. <br><br>
+                    CLB không chỉ là nơi rèn luyện kỹ năng dẫn chương trình, mà còn là ngôi nhà chung của những người trẻ giàu đam mê, nhiệt huyết và khát khao phát triển bản thân. Chúng tôi cam kết sẽ luôn duy trì môi trường tích cực, sáng tạo, thân thiện và chuyên nghiệp để mỗi thành viên đều có cơ hội toả sáng và trưởng thành. <br><br>
+                    Hành trình phía trước vẫn còn dài, nhưng với sự đồng lòng và yêu thương, CLB MC KMC tin rằng chúng ta sẽ cùng nhau viết nên những trang đầy tự hào.
+                </p>
+                <p style="margin-top: 40px; font-style: italic;">
+                    ----- Chủ nhiệm CLB - <strong>Lương Phương Nhung</strong> -----
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Newslatter Section End -->
+
+
+    <section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title">
+                    <h2>Địa điểm</h2>
+                    <p>Chỉ đường đến Trường Đại học Thủy lợi</p>
+                </div>
+                <div class="cs-text">
+                    <div class="ct-address">
+                        <span>Địa chỉ:</span>
+                        <p>175 Tây Sơn, Đống Đa, Hà Nội<br />Trường Đại học Thủy lợi</p>
+                    </div>
+                    <ul>
+                        <li>
+                            <span>Điện thoại:</span>
+                            0355227021 - Phương Nhung (Chủ nhiệm)
+                        </li>
+                        <li>
+                            <span>Email:</span>
+                            clbmctruongdaihocthuyloi@gmail.com
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="cs-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.643079047235!2d105.82309947597343!3d21.00776938856802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab7845f4b715%3A0xc645a9797a4b50b!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBUaGnDqm0gbMOybmc!5e0!3m2!1svi!2s!4v1721190103045!5m2!1svi!2s"
+                        height="400" style="border:0; width:100%;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+    <footer class="footer-section">
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-text">
+                        <div class="ft-logo">
+                            <a href="#" class="footer-logo"><img src="img/log.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="about-us.html">Về chúng tôi</a></li>
+                            <li><a href="speaker.html">Bài viết</a></li>
+                            <li><a href="booking.html">Đặt lịch</a></li>
+                        </ul>
+                        <div class="copyright-text"><p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | KMC WITH LOVE <a href="https://web.facebook.com/trhieu.le.2024" target="_blank">TrHieuLe(HNC)</a></p></div>
+                        <div class="ft-social">
+                            <a href="https://web.facebook.com/KMC.CLBMCTLU" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.tiktok.com/@mcthuyloi1607" target="_blank"><i class="fa fa-tiktok"></i></a>
+                            <a href="mailto:clbmctruongdaihocthuyloi@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+      const container = document.getElementById("posts");
+      const createBtn = document.getElementById("create");
+      const adminToggle = document.getElementById("adminToggle");
+      const isAdmin = localStorage.getItem("isAdmin") === "true";
+      if (isAdmin){
+        createBtn.style.display = "block";
+        adminToggle.innerHTML = '<i class="fa fa-user-times"></i> SIGNOUT ADMIN';
+      } else{
+        createBtn.style.display = "none";
+        adminToggle.innerHTML = '<i class="fa fa-user"></i> LOGIN ADMIN';
+      }
+      adminToggle.onclick = () => {
+        if (isAdmin) {
+          localStorage.removeItem("isAdmin");
+          location.reload();
+        } else {
+          const pw = prompt("Nhập mật khẩu admin:");
+          if (pw === "hieunhocau") {
+            localStorage.setItem("isAdmin", "true");
+            location.reload();
+          } else {
+            alert("Sai mật khẩu!");
+          }
+        }
+      };
+
+      posts.forEach((post, index) => {
+        const div = document.createElement("div");
+        div.className = "post";
+
+        const title = post.title ? post.title : `Bài viết ${index + 1}`;
+
+        let summary = "";
+        if (post.created) {
+        summary = `<em>Đăng lúc: ${post.created}</em>`;
+        } else {
+        summary = `<em>Thời gian không xác định</em>`;
+        }
+
+
+        const link = document.createElement("a");
+        link.href = `reader.html?id=${index}`;
+        link.textContent = title;
+        link.target = "_blank";
+
+        const summaryDiv = document.createElement("div");
+        summaryDiv.className = "summary";
+        summaryDiv.innerHTML = summary;
+        if (isAdmin) {
+          const deleteBtn = document.createElement("button");
+          deleteBtn.textContent = "❌";
+          deleteBtn.className = "delete-btn";
+          deleteBtn.onclick = () => {
+            if (confirm("Bạn có chắc muốn xóa bài viết này?")) {
+              posts.splice(index, 1);
+              localStorage.setItem("posts", JSON.stringify(posts));
+              location.reload();
+            }
+          };
+          div.appendChild(deleteBtn);
+        }
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => {
+          if (confirm("Bạn có chắc muốn xóa bài viết này?")) {
+            posts.splice(index, 1);
+            localStorage.setItem("posts", JSON.stringify(posts));
+            location.reload();
+          }
+        };
+
+        div.appendChild(link);
+        div.appendChild(summaryDiv);
+        div.appendChild(deleteBtn);
+        container.appendChild(div);
+      });
+    </script>
+    
+    
+</body>
+</html>

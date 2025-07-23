@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng bài từ Google Docs</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 12px;
+      background: #fafbfc;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    
+    const encodedToken = 'Z2hwX2tnS2oyOVViSnVZbWpLQkpEVEdDUnpLaExLakNIdjFUaXlzTQ==';
+  // --- Cấu hình GitHub ---
+  const GITHUB_TOKEN = atob(encodedToken); // ⚠️ Dán mã PAT của bạn vào đây
+  const GITHUB_REPO = 'my-blog-posts'; // Tên kho chứa của bạn
+  const GITHUB_USER = 'TrHieuLe'; // Tên người dùng GitHub của bạn
+
+  // Hàm loadDoc không thay đổi
+  function loadDoc() {
+    var link = document.getElementById("docLink").value.trim();
+    if (!link) {
+      alert("Vui lòng nhập link Google Docs!");
+      return;
+    }
+    var idMatch = link.match(/\/d\/([^\/]+)/);
+    if (!idMatch || !idMatch[1]) {
+      alert("Link không hợp lệ. Đảm bảo link chứa chuỗi '/d/{DOC_ID}/'.");
+      return;
+    }
+    var docId = idMatch[1];
+    var exportUrl = "https://docs.google.com/document/d/" + docId + "/export?format=html";
+
+    fetch(exportUrl)
+      .then(res => {
+        if (!res.ok) throw new Error("Không thể tải tài liệu.");
+        return res.text();
+      })
+      .then(html => {
+        document.getElementById("result").innerHTML = html;
+        document.getElementById("postBtn").style.display = "inline-block";
+      })
+      .catch(err => alert("Lỗi: " + err.message));
+  }
+
+  // --- HÀM LƯU BÀI VIẾT MỚI ---
+  async function savePost(newPost) {
+    // Tạo tên file duy nhất dựa trên tiêu đề và ngày giờ
+    const slug = newPost.title.toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '');
+    ///const date = new Date().toISOString().split('T')[0]; // Lấy YYYY-MM-DD
+    const fileName = `${slug}.html`;
+    const filePath = `posts/${fileName}`; // Lưu vào thư mục 'posts'
+
+    // GitHub API yêu cầu nội dung phải được mã hóa Base64
+    const contentBase64 = btoa(unescape(encodeURIComponent(newPost.content)));
+
+    const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${filePath}`;
+
+    try {
+      const res = await fetch(GITHUB_API_URL, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Thêm bài viết mới: ${newPost.title}`,
+          content: contentBase64,
+          committer: {
+            name: GITHUB_USER,
+            email: 'user@example.com' // Email này không quan trọng lắm
+          }
+        })
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(`Không lưu được trên GitHub: ${errorData.message}`);
+      }
+
+      alert("✅ TrHieuLe: Bài viết đã được lưu thành cong");
+      // Tùy chọn: chuyển hướng hoặc xóa nội dung
+      // window.location.href = "some-page.html";
+      window.location.href = "speaker.html?fromEditor=true";
+      setTimeout(() => {
+        window.location.href = "speaker.html";
+      }, 1000);
+
+    } catch (err) {
+      console.error("Lỗi khi lưu:", err);
+      alert(`❌ Lỗi khi lưu bài viết: ${err.message}`);
+    }
+    
+  }
+
+  // Hàm postDoc không thay đổi nhiều
+  function postDoc() {
+    const content = document.getElementById("result").innerHTML;
+    if (!content || content.trim() === "") {
+      alert("Không có nội dung để đăng!");
+      return;
+    }
+
+    const customTitle = document.getElementById("titleInput").value.trim();
+    let title = "";
+    if (customTitle) {
+      title = customTitle;
+    } else {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = content;
+      const titleEl = tempDiv.querySelector("h1");
+      title = titleEl ? titleEl.textContent.trim() : "Bài viết mới";
+    }
+
+    const newPost = {
+      title: title,
+      content: content,
+      time: new Date().toISOString()
+    };
+
+    savePost(newPost);
+  }
+</script>
+</head>
+<body>
+  <h1>Đăng bài từ Google Docs</h1>
+  <p>Nhập link công khai Google Docs (phải có dạng <code>/d/.../</code>):</p>
+  <input type="text" id="docLink" placeholder="https://docs.google.com/document/d/…/pub">
+
+  <label for="titleInput">Tiêu đề (tùy chọn):</label>
+  <input type="text" id="titleInput" placeholder="Nhập tiêu đề tại đây (nếu muốn)">
+
+  <button onclick="loadDoc()">Xem tài liệu</button>
+  <br><br>
+  <div id="result"></div>
+  <br>
+  <button id="postBtn" onclick="postDoc()" style="display:none; background-color: #28a745; color: white;">Đăng bài</button>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đọc bài viết</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      padding: 20px 40px;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+      background-color: #fdfdfd;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    #content {
+        padding: 20px;
+        border: 1px solid #eee;
+        background-color: #fff;
+    }
+    #loading {
+        text-align: center;
+        font-size: 1.2em;
+        color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <p id="loading">Đang tải bài viết...</p>
+  </div>
+
+  <script>
+    // --- Cấu hình GitHub (giống hệt file đăng bài) ---
+    const GI = 'none'; // ⚠️ Dán mã PAT của bạn vào đây
+    const GITHUB_REPO = 'my-blog-posts'; // Tên kho chứa của bạn
+    const GITHUB_USER = 'TrHieuLe'; // Tên người dùng GitHub của bạn
+
+    // Hàm để giải mã nội dung Base64 từ GitHub API
+    function decodeContent(base64) {
+      try {
+        // Chuyển Base64 về chuỗi nhị phân
+        const binaryString = atob(base64);
+        // Chuyển chuỗi nhị phân về mảng byte
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        // Sử dụng TextDecoder để giải mã UTF-8, đảm bảo hiển thị đúng tiếng Việt
+        return new TextDecoder('utf-8').decode(bytes);
+      } catch (e) {
+        console.error("Lỗi giải mã Base64:", e);
+        return "<p>Không thể giải mã nội dung bài viết.</p>";
+      }
+    }
+
+    async function loadPost() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileName = urlParams.get("post"); // Lấy tên file từ URL, ví dụ: ?post=ten-file.html
+      const contentDiv = document.getElementById("content");
+
+      if (!fileName) {
+        contentDiv.innerHTML = "<h1>Lỗi</h1><p>Không tìm thấy tên bài viết trong địa chỉ URL.</p><p>Vui lòng kiểm tra lại liên kết, nó phải có dạng `?post=ten-file.html`</p>";
+        return;
+      }
+
+      const filePath = `posts/${fileName}`;
+      const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${filePath}`;
+
+      try {
+        const res = await fetch(GITHUB_API_URL, {
+          headers: {
+            'Authorization': `token ${GI}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error(`Không thể tải bài viết (mã lỗi: ${res.status}). Vui lòng kiểm tra lại tên file hoặc mã PAT.`);
+        }
+
+        const data = await res.json();
+        // GitHub API trả về nội dung đã được mã hóa Base64
+        const decodedContent = decodeContent(data.content);
+        contentDiv.innerHTML = decodedContent;
+      } catch (err) {
+        console.error("Lỗi khi tải bài viết:", err);
+        contentDiv.innerHTML = `<p style="color: red;"><strong>Lỗi:</strong> ${err.message}</p>`;
+      }
+    }
+
+    // Chạy hàm khi trang được tải
+    loadPost();
+  </script>
+</body>
+</html>
