@@ -47,8 +47,6 @@
         .price-item ul { list-style: none; padding: 15px 25px; text-align: left; }
         .pi-price h2 { text-align: center; padding: 10px 0; }
         .container { max-width: 1140px; margin: auto; padding: 0 15px; }
-        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
-        .col-lg-3 { width: 25%; padding: 0 15px; box-sizing: border-box; }
         html {
   scroll-behavior: smooth;
 }
@@ -100,7 +98,14 @@
         font-weight: 500;
         font-size: 16px;
     }
-
+    .overlay-text {
+  color: white;
+  text-shadow: 0 0 5px rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.2); /* nền mờ đen */
+  padding: 6px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
    
 </style>
 </head>
@@ -394,8 +399,8 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
-                    <div class="price-item">
+                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos="fade-up">
+                    <div class="price-item h-100">
                         <div class="price-img">
                             <img src="img/img-cn/thuylinh_1.jpg" alt="GEN I" style="width: 100%; ">
                         </div>
@@ -410,8 +415,8 @@
                       
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="price-item">
+                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="price-item h-100">
                         <div class="price-img">
                             <img src="img/img-cn/duy_son.jpg" alt="GEN II" style="width: 100%;;">
                         </div>
@@ -426,8 +431,8 @@
                        
                     </div>
                 </div> 
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="price-item">
+                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="price-item h-100">
                         <!-- Ảnh phía trên -->
                         <div class="price-img">
                             <img src="img/img-cn/ducvan.jpg" alt="GEN III" style="width: 100%; ">
@@ -445,8 +450,8 @@
                        
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="price-item">
+                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="price-item h-100">
                         <!-- Ảnh phía trên -->
                         <div class="price-img">
                             <img src="img/img-cn/phwnhung.jpg" alt="GEN IV" style="width: 100%; ">
